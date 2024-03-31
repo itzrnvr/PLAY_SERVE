@@ -3,6 +3,7 @@ import {Text, View} from 'react-native';
 import StaticServer from 'react-native-static-server';
 import RNFS from 'react-native-fs';
 import {WebView} from 'react-native-webview';
+import { downloadMPEGDASHStream } from './utils/downloadMPD';
 
 const App = () => {
   useEffect(() => {
@@ -15,6 +16,10 @@ const App = () => {
     // Starting the server
     server.start().then(url => {
       console.log('Server started at ' + url);
+      const mpdUrl = 'https://media.axprod.net/TestVectors/v7-MultiDRM-SingleKey/Manifest_1080p_ClearKey.mpd';
+      const basePath = `${RNFS.DocumentDirectoryPath}/static_assets/vid0`;
+  
+      downloadMPEGDASHStream(mpdUrl, basePath);
     });
   });
 
